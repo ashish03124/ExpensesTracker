@@ -1,0 +1,26 @@
+{
+  "name": "spreetail-expense-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "node db/migrations.js",
+    "seed": "node db/seeds.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "csv-parse": "^5.6.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.5",
+    "spreetail-expense-tracker": "file:.."
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
