@@ -573,6 +573,18 @@ export default function App() {
     }
   };
 
+  // Download Import Report as JSON file
+  const handleDownloadReport = () => {
+    if (!importReport) return;
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(importReport, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `import_report_${importReport.import_id || 'summary'}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
+
   // Auto-fill default resolutions on anomalies to let the user batch resolve
   const handleBatchDefaultResolutions = async () => {
     if (!importAnomalies || importAnomalies.length === 0) return;
@@ -1391,9 +1403,14 @@ export default function App() {
                   ))}
                 </div>
 
-                <button className="btn btn-secondary" style={{ marginTop: '1.5rem' }} onClick={() => setImportReport(null)}>
-                  Import Another File
-                </button>
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+                  <button className="btn btn-primary" onClick={handleDownloadReport}>
+                    Download Report (JSON)
+                  </button>
+                  <button className="btn btn-secondary" onClick={() => setImportReport(null)}>
+                    Import Another File
+                  </button>
+                </div>
               </div>
             )}
           </div>
