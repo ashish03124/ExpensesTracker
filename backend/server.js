@@ -34,6 +34,13 @@ app.use('/api/groups/:groupId', expensesRouter);
 app.use('/api/groups/:groupId', balancesRouter);
 app.use('/api/groups/:groupId', importRouter);
 
+// Serve static assets
+const distPath = path.resolve(__dirname, '../frontend/dist');
+app.use(express.static(distPath));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(distPath, 'index.html'));
+});
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error('API Error:', err);
