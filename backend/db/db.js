@@ -14,13 +14,20 @@ pg.types.setTypeParser(pg.types.builtins.DATE, (val) => val);
 
 const { Pool } = pg;
 
-const pool = new Pool({
-  host: process.env.PGHOST || 'localhost',
-  port: parseInt(process.env.PGPORT || '5432'),
-  user: process.env.PGUSER || 'postgres',
-  password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE || 'expense_tracker',
-});
+const poolConfig = (process.env.DATABASE_URL || process.env.PGCONNECTIONSTRING)
+  ? {
+      connectionString: process.env.DATABASE_URL || process.env.PGCONNECTIONSTRING,
+      ssl: { rejectUnauthorized: false }
+    }
+  : {
+      host: process.env.PGHOST || 'localhost',
+      port: parseInt(process.env.PGPORT || '5432'),
+      user: process.env.PGUSER || 'postgres',
+      password: process.env.PGPASSWORD,
+      database: process.env.PGDATABASE || 'expense_tracker',
+    };
+
+const pool = new Pool(poolConfig);
 
 // Test connection
 pool.on('connect', () => {

@@ -1,0 +1,30 @@
+services:
+  # Backend Service
+  - type: web
+    name: spreetail-expense-backend
+    env: node
+    buildCommand: npm install --prefix backend
+    startCommand: npm start --prefix backend
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PGCONNECTIONSTRING
+        fromDatabase:
+          name: spreetail-expense-db
+          property: connectionString
+
+  # Frontend Service (Static Site)
+  - type: web
+    name: spreetail-expense-frontend
+    env: static
+    buildCommand: npm install --prefix frontend && npm run build --prefix frontend
+    publishDir: frontend/dist
+    routes:
+      - src: /*
+        dest: /index.html
+
+databases:
+  - name: spreetail-expense-db
+    plan: free
