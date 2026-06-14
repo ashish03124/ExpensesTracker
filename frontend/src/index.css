@@ -10,6 +10,7 @@
   --bg-deep: #0d0d0d;
   --bg-surface: rgba(255, 255, 255, 0.04);
   --bg-surface-hover: rgba(255, 255, 255, 0.07);
+  --bg-hover: rgba(255, 255, 255, 0.05);
   --bg-glass: rgba(15, 15, 15, 0.75);
   --bg-glass-strong: rgba(10, 10, 10, 0.88);
 

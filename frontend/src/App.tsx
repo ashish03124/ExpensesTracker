@@ -648,7 +648,7 @@ export default function App() {
   // Render Login view if unauthenticated
   if (!token || !currentUser) {
     return (
-      <div className="app-container" style={{ background: '#f6f6f7' }}>
+      <div className="app-container">
         <header className="navbar">
           <div className="logo-container">
             <span className="logo-text">Spreetail Shared Expenses</span>
@@ -894,7 +894,7 @@ export default function App() {
               padding: '1rem',
               background: 'var(--bg-hover)',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--border-color)',
+              border: '1px solid var(--border-default)',
               marginBottom: '0.5rem'
             }}>
               <div className="form-group" style={{ gap: '0.25rem' }}>
@@ -1104,7 +1104,7 @@ export default function App() {
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {suggestedSettlements.map((s, idx) => (
-                    <div key={idx} style={{ padding: '1rem', border: '1px solid var(--border-color)', borderRadius: '8px', background: '#fafafa', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div key={idx} style={{ padding: '1rem', border: '1px solid var(--border-subtle)', borderRadius: '8px', background: 'rgba(255, 255, 255, 0.03)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div>
                         <span style={{ fontWeight: 600 }}>{s.from_name}</span>
                         <span style={{ color: 'var(--text-secondary)', margin: '0 0.5rem' }}>pays</span>
@@ -1349,7 +1349,7 @@ export default function App() {
 
             {/* Commit phase */}
             {importSessionId && importAnomalies.length > 0 && importAnomalies.every(a => a.resolution !== null && a.resolution !== undefined && String(a.resolution).length > 0) && (
-              <div className="importer-container" style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+              <div className="importer-container" style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-default)', paddingTop: '1.5rem' }}>
                 <div className="alert alert-success">
                   <strong>All anomalies resolved!</strong> Ready to apply changes to database.
                 </div>
@@ -1361,29 +1361,29 @@ export default function App() {
 
             {/* Post Import Report */}
             {importReport && (
-              <div className="importer-container" style={{ background: '#fafafa', border: '1px solid var(--border-color)', padding: '1.5rem', borderRadius: '8px' }}>
+              <div className="importer-container" style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--border-subtle)', padding: '1.5rem', borderRadius: '8px' }}>
                 <h3 className="card-title" style={{ color: 'var(--color-success)', marginBottom: '1rem' }}>
                   ✅ Database Import Complete
                 </h3>
                 <div className="grid-3" style={{ marginBottom: '1.5rem' }}>
-                  <div style={{ background: 'white', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Total Rows</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{importReport.total_rows}</div>
                   </div>
-                  <div style={{ background: 'white', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Imported Successfully</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{importReport.imported_successfully}</div>
                   </div>
-                  <div style={{ background: 'white', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Anomalies Resolved</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{importReport.anomalies_detected}</div>
                   </div>
                 </div>
 
                 <h4 style={{ marginBottom: '0.5rem' }}>Resolution Breakdown Report:</h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '300px', overflowY: 'auto', background: 'white', padding: '1rem', border: '1px solid var(--border-color)', borderRadius: '6px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '300px', overflowY: 'auto', background: 'rgba(0, 0, 0, 0.2)', padding: '1rem', border: '1px solid var(--border-subtle)', borderRadius: '6px' }}>
                   {importReport.anomaly_breakdown.map((item, idx) => (
-                    <div key={idx} style={{ fontSize: '0.8125rem', borderBottom: '1px solid #f4f4f5', paddingBottom: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                    <div key={idx} style={{ fontSize: '0.8125rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
                       <div style={{ fontWeight: 600 }}>Row {item.row} ({item.type})</div>
                       <div style={{ color: 'var(--text-secondary)' }}>{item.description}</div>
                       <div style={{ color: 'var(--color-success)', fontWeight: 500 }}>{item.resolution}</div>
@@ -1565,7 +1565,7 @@ export default function App() {
                 {/* Split Participants checkboxes */}
                 <div className="form-group">
                   <label className="form-label">Split With Members:</label>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', border: '1px solid var(--border-color)', padding: '0.75rem', borderRadius: '6px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', border: '1px solid var(--border-default)', padding: '0.75rem', borderRadius: '6px' }}>
                     {groupMembers.map(m => (
                       <label key={m.user_id} style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', cursor: 'pointer' }}>
                         <input
@@ -1589,7 +1589,7 @@ export default function App() {
                 {(expSplitType === 'unequal' || expSplitType === 'percentage' || expSplitType === 'share') && expSplitWith.length > 0 && (
                   <div className="form-group">
                     <label className="form-label">Enter values for each split participant:</label>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: '#fafafa', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: 'rgba(255, 255, 255, 0.02)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-default)' }}>
                       {expSplitWith.map(uid => {
                         const m = groupMembers.find(gm => gm.user_id === uid);
                         return (
