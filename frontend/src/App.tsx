@@ -733,9 +733,22 @@ export default function App() {
 
       {/* Main Content Layout */}
       <main className="main-content">
-        {/* Status Message Banner */}
+        {/* Status Toast */}
         {globalMessage && (
-          <div className={`alert alert-${globalMessage.type}`}>
+          <div
+            className="global-toast"
+            style={{
+              background: globalMessage.type === 'success'
+                ? 'rgba(10,30,10,0.9)'
+                : 'rgba(30,5,5,0.9)',
+              borderColor: globalMessage.type === 'success'
+                ? 'var(--color-success-border)'
+                : 'var(--color-error-border)',
+              color: globalMessage.type === 'success'
+                ? 'var(--color-success)'
+                : 'var(--color-error)',
+            }}
+          >
             {globalMessage.text}
           </div>
         )}
