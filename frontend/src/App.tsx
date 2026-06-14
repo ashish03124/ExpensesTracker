@@ -1168,7 +1168,7 @@ export default function App() {
                 {(() => {
                   const anomaly = importAnomalies[currentAnomalyIndex];
                   if (!anomaly) return null;
-                  
+
                   // Custom resolution helper configurations based on anomaly type
                   let options: Array<{ label: string, val: any }> = [];
                   switch (anomaly.anomaly_type) {
@@ -1283,7 +1283,7 @@ export default function App() {
                         </span>
                       </div>
                       <p style={{ fontWeight: 500, fontSize: '0.9375rem' }}>{anomaly.description}</p>
-                      
+
                       <div className="raw-row-dump">
                         <strong>Raw CSV Values:</strong>
                         <div>{JSON.stringify(anomaly.raw_row)}</div>

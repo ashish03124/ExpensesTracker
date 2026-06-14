@@ -1,30 +1,22 @@
 services:
-  # Backend Service
+  # Monolithic Web Service (Backend + Frontend Static assets)
   - type: web
-    name: spreetail-expense-backend
+    name: spreetail-shared-expenses
     env: node
-    buildCommand: npm install --prefix backend
-    startCommand: npm start --prefix backend
+    buildCommand: npm run build
+    startCommand: npm run migrate && npm start
     envVars:
       - key: PORT
         value: 5000
+      - key: NODE_ENV
+        value: production
       - key: JWT_SECRET
         generateValue: true
       - key: PGCONNECTIONSTRING
         fromDatabase:
-          name: spreetail-expense-db
+          name: spreetail-expenses-db
           property: connectionString
 
-  # Frontend Service (Static Site)
-  - type: web
-    name: spreetail-expense-frontend
-    env: static
-    buildCommand: npm install --prefix frontend && npm run build --prefix frontend
-    publishDir: frontend/dist
-    routes:
-      - src: /*
-        dest: /index.html
-
 databases:
-  - name: spreetail-expense-db
+  - name: spreetail-expenses-db
     plan: free
