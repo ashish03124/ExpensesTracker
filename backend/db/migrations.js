@@ -104,6 +104,7 @@ const up = async () => {
         group_id UUID REFERENCES groups(id) ON DELETE CASCADE,
         imported_by UUID REFERENCES users(id) ON DELETE SET NULL,
         filename TEXT,
+        raw_rows JSONB,
         started_at TIMESTAMPTZ DEFAULT now(),
         completed_at TIMESTAMPTZ,
         status TEXT CHECK (status IN ('in_progress','awaiting_review','completed','aborted'))

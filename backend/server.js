@@ -8,6 +8,7 @@ import authRouter from './routes/auth.js';
 import groupsRouter from './routes/groups.js';
 import expensesRouter from './routes/expenses.js';
 import balancesRouter from './routes/balances.js';
+import importRouter from './routes/import.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,6 +32,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/groups', groupsRouter);
 app.use('/api/groups/:groupId', expensesRouter);
 app.use('/api/groups/:groupId', balancesRouter);
+app.use('/api/groups/:groupId', importRouter);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
