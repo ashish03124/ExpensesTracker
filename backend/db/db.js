@@ -9,6 +9,9 @@ const __dirname = path.dirname(__filename);
 // Load env variables
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
+// Parse PostgreSQL DATE type as raw string (prevents timezone shifting)
+pg.types.setTypeParser(pg.types.builtins.DATE, (val) => val);
+
 const { Pool } = pg;
 
 const pool = new Pool({

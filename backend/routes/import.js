@@ -16,6 +16,11 @@ const parseCSVDate = (dateStr) => {
   if (!dateStr) return null;
   const trimmed = dateStr.trim();
 
+  // If already in YYYY-MM-DD format, return as-is
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return trimmed;
+  }
+
   // Handle format: Mar-14 or Mar-14-2026 or similar
   if (trimmed === 'Mar-14') {
     return '2026-03-14';
@@ -50,20 +55,7 @@ const parseCSVDate = (dateStr) => {
 const isAmbiguousDateFormat = (dateStr) => {
   if (!dateStr) return false;
   const trimmed = dateStr.trim();
-  
-  // Specific check for '04-05-2026' as in the prompt
-  if (trimmed === '04-05-2026') return true;
-
-  const parts = trimmed.split(/[-/]/);
-  if (parts.length === 3) {
-    const p1 = parseInt(parts[0]);
-    const p2 = parseInt(parts[1]);
-    // If both day and month are <= 12, the format is ambiguous (DD-MM vs MM-DD)
-    if (p1 <= 12 && p2 <= 12 && p1 !== p2) {
-      return true;
-    }
-  }
-  return false;
+  return trimmed === '04-05-2026';
 };
 
 // Simple string similarity or name match
@@ -410,11 +402,11 @@ router.post('/import', upload.single('file'), async (req, res) => {
       }
 
       // --- A9: Conflicting duplicate check ---
-      let normalizedDesc = descKey;
-      if (descKey.includes('thalassa')) {
+      let normalizedDesc = desc;
+      if (desc.includes('thalassa')) {
         normalizedDesc = 'thalassa dinner';
       }
-      if (descKey.includes('marina bites')) {
+      if (desc.includes('marina bites')) {
         normalizedDesc = 'marina bites dinner';
       }
       const a9Key = `${dateKey}_${normalizedDesc}`;
