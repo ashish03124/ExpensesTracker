@@ -2,6 +2,8 @@
 
 A full-stack shared expenses web application for flatmates to track, split, import, and settle group expenses — built with Node.js, React, TypeScript, and PostgreSQL.
 
+Developed with **AI Assistance** (Google DeepMind's Antigravity pair programmer using Gemini 3.5 Flash and Claude 3.5 Sonnet models). Detailed AI prompts and bug corrections are documented in [AI_USAGE.md](./AI_USAGE.md).
+
 ## Quick Start
 
 ### Prerequisites

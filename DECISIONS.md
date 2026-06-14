@@ -121,11 +121,11 @@ Remainder: 89999 - (22499 × 4) = 3 → first 3 people get 22500
 
 ---
 
-## D10. Design Aesthetic — Sleek Minimalist Light Theme
+## D10. Design Aesthetic — Minimalist Red × Black Glassmorphism Dark Theme
 
-**Decision**: Used a clean light theme with Outfit/Inter typography, soft grays, crisp borders, and subtle hover animations.
+**Decision**: Migrated the UI to a premium dark theme utilizing deep void black (#050505), high contrast solid red highlights (#e60000 / #ff4d4d), frosted glass cards (backdrop-filter: blur(16px)), and clean solid active controls.
 
-**Rationale**: The flatmates are non-technical users. A minimal, well-spaced layout with clear visual hierarchy (color-coded positive/negative balances, severity badges on anomalies) makes the app immediately usable without a tutorial.
+**Rationale**: The glassmorphic design system provides a high-end, premium aesthetic that gives a modern and polished feel. The solid red controls improve readability and interaction, and color-coded positive (green) and negative (bright coral red) balances ensure excellent text visibility.
 
 ---
 
