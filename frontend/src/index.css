@@ -10,35 +10,35 @@
   --bg-deep: #0d0d0d;
   --bg-surface: rgba(255, 255, 255, 0.04);
   --bg-surface-hover: rgba(255, 255, 255, 0.07);
-  --bg-glass: rgba(15, 15, 15, 0.72);
-  --bg-glass-strong: rgba(10, 10, 10, 0.85);
+  --bg-glass: rgba(15, 15, 15, 0.75);
+  --bg-glass-strong: rgba(10, 10, 10, 0.88);
 
-  /* Red palette */
-  --red-500: #ef4444;
-  --red-600: #dc2626;
-  --red-700: #b91c1c;
+  /* Red palette (Solid & High Visibility) */
+  --red-500: #ff4d4d; /* Brighter high contrast red */
+  --red-600: #e60000; /* Solid primary red */
+  --red-700: #b30000; /* Deep red for shadows/borders */
   --red-900: #450a0a;
-  --red-glow: rgba(239, 68, 68, 0.25);
-  --red-border: rgba(239, 68, 68, 0.3);
-  --red-border-strong: rgba(239, 68, 68, 0.6);
+  --red-glow: rgba(230, 0, 0, 0.25);
+  --red-border: rgba(230, 0, 0, 0.35);
+  --red-border-strong: rgba(230, 0, 0, 0.65);
 
-  /* Text */
-  --text-primary: #f5f5f5;
-  --text-secondary: rgba(245, 245, 245, 0.55);
-  --text-muted: rgba(245, 245, 245, 0.3);
+  /* Text (Optimized for maximum contrast) */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.85); /* High legibility secondary text */
+  --text-muted: rgba(255, 255, 255, 0.65);    /* Clear, readable muted text */
 
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-default: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.22);
 
   /* Status colours */
   --color-success: #4ade80;
   --color-success-bg: rgba(74, 222, 128, 0.08);
   --color-success-border: rgba(74, 222, 128, 0.25);
-  --color-error: #ef4444;
-  --color-error-bg: rgba(239, 68, 68, 0.08);
-  --color-error-border: rgba(239, 68, 68, 0.3);
+  --color-error: #ff4d4d; /* High-contrast bright red for errors */
+  --color-error-bg: rgba(255, 77, 77, 0.08);
+  --color-error-border: rgba(255, 77, 77, 0.3);
   --color-warning: #fbbf24;
   --color-warning-bg: rgba(251, 191, 36, 0.08);
   --color-warning-border: rgba(251, 191, 36, 0.25);
@@ -49,7 +49,7 @@
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-red: 0 0 20px rgba(239, 68, 68, 0.15), 0 0 60px rgba(239, 68, 68, 0.06);
+  --shadow-red: 0 0 20px rgba(230, 0, 0, 0.15), 0 0 60px rgba(230, 0, 0, 0.06);
   --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.05);
 
   --radius-sm: 8px;
@@ -124,10 +124,7 @@ header.navbar {
   font-weight: 800;
   letter-spacing: -0.04em;
   font-family: var(--font-display);
-  background: linear-gradient(135deg, #fff 30%, var(--red-500) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--red-500);
 }
 
 .user-nav {
@@ -188,9 +185,9 @@ header.navbar {
 }
 
 .tab-btn.active {
-  background: linear-gradient(135deg, var(--red-700), var(--red-600));
+  background: var(--red-600);
   color: #fff;
-  box-shadow: 0 2px 12px var(--red-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+  box-shadow: 0 2px 12px var(--red-glow);
 }
 
 /* ── Cards ── */
@@ -301,20 +298,21 @@ header.navbar {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+  background: transparent;
   pointer-events: none;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--red-600), var(--red-700));
+  background: var(--red-600);
   color: #fff;
-  border-color: var(--red-700);
+  border-color: var(--red-600);
   box-shadow: 0 2px 12px var(--red-glow);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--red-500), var(--red-600));
-  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+  background: var(--red-500);
+  border-color: var(--red-500);
+  box-shadow: 0 4px 20px rgba(230, 0, 0, 0.4);
   transform: translateY(-1px);
 }
 
@@ -467,7 +465,7 @@ table.data-table tr:hover td {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: linear-gradient(90deg, rgba(239,68,68,0.05), transparent);
+  background: rgba(230, 0, 0, 0.04);
   transition: opacity 0.22s ease;
 }
 
