@@ -62,6 +62,56 @@ This project was built with AI pair-programming assistance (Gemini / Claude via 
 3. **Test-Driven Corrections**: Used `verify.js` test output to identify and fix issues iteratively
 4. **Targeted Fixes**: When bugs appeared, provided exact error messages and stack traces for precise corrections
 
+### Master Expert Prompt (Initial System Specification)
+
+Below is the master system prompt designed and provided at the beginning of the project to drive the codebase generation:
+
+```markdown
+Act as a Principal Software Engineer & Database Architect. We are building a "Spreetail Shared Expenses Tracker" web application designed to help flatmates track, split, and settle group expenses. The application will digest a messy CSV spreadsheet export ("Expenses Export.csv") containing various formatting anomalies and data inconsistencies.
+
+Design and implement a clean, production-ready full-stack application following these architectural specifications:
+
+### 1. Technology Stack Directives
+- **Backend**: Node.js + Express (ESM module format). Implement direct database queries using the `pg` package instead of an ORM to maintain full control over complex JOINs and raw date parsing. Override pg's default DATE type parser to return raw ISO date strings to prevent timezone shifting.
+- **Database**: PostgreSQL. Design a schema supporting:
+  - Time-bounded memberships (`joined_at`, `left_at` columns) to ensure users are only split into expenses occurring within their active membership window.
+  - Transactions/Expenses and Settlements stored in separate tables (`expenses`, `expense_splits`, `settlements`) to prevent double-counting.
+  - UUIDs for all primary/foreign keys.
+  - An `import_sessions` and `import_anomalies` table to track CSV import wizard state.
+- **Frontend**: React 19 + TypeScript + Vite. Keep the UI modular or structured inside `App.tsx` with a single-page tabbed layout (Dashboard, Expenses, Balances, Importer).
+- **Styling**: Vanilla CSS utilizing custom design tokens (no Tailwind or UI libraries) with a dark theme glassmorphism aesthetic. All interactive elements must have unique, descriptive IDs.
+
+### 2. CSV Import Anomaly-Resolution Engine
+Build a three-phase state machine endpoint (Upload -> Anomaly Resolution -> Atomic Commit) that parses the CSV file and detects the following 18 anomaly types:
+- **A1**: Exact duplicate expense row (Discard duplicate row).
+- **A2**: Comma in amount string, e.g. "1,200" (Strip commas, parse as float).
+- **A3**: Payer name variant/fuzzy match, e.g. "Priya S" -> "Priya" (Fuzzy match to closest group member).
+- **A4**: Missing payer (User assigns a payer from group members).
+- **A5**: Settlement mislabelled as expense (Import as settlement record).
+- **A6**: Percentage split sums ≠ 100% (Adjust split details to sum to 100%).
+- **A7**: Foreign currency requires FX conversion (Prompt user for conversion rate).
+- **A8**: Non-member participant in split (Redistribute non-member's share).
+- **A9**: Conflicting duplicate rows (Keep correct version, discard other).
+- **A10**: Negative amount (Import as negative refund expense).
+- **A11**: Non-standard date format, e.g. "Mar-14" (Standardize to YYYY-MM-DD).
+- **A12**: Missing currency (Assume INR).
+- **A13**: Zero amount row (Skip/discard row).
+- **A14**: Ambiguous date DD-MM-YYYY vs MM-DD-YYYY, e.g. "04-05-2026" (Confirm date).
+- **A15**: Inactive member in split (Exclude member from split).
+- **A16**: Security deposit mislabelled as expense (Import as settlement).
+- **A17**: Split type/details conflict, e.g. equal split with details (Import as equal split).
+- **A18**: Payer name casing mismatch, e.g. "priya" (Normalise to canonical case).
+
+Ensure the import commit endpoint is fully idempotent: prevent re-importing the same filename for the same group to maintain database integrity.
+
+### 3. Core Calculations
+- **Balance Formula**: `net_balance = (paid_expenses + paid_settlements) - (owed_expenses + received_settlements)`.
+- **Greedy Two-Pointer Graph**: Implement a debt simplification algorithm that sorts net positive creditors and net negative debtors, then matches them using two pointers to minimize total transactions.
+- **Cent-Rounding Allocation**: Ensure equal splits round down to the nearest paisa and distribute the remainder to the first participants so the total split sum matches the expense amount exactly.
+
+Write an end-to-end node verification script (`backend/tests/verify.js`) that verifies these membership bounds and split calculations by uploading the CSV, programmatically resolving all anomalies, committing, and asserting expected net balances.
+```
+
 ---
 
 ## Lines of Code
